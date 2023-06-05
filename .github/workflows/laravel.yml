@@ -33,3 +33,11 @@ jobs:
         DB_CONNECTION: sqlite
         DB_DATABASE: database/database.sqlite
       run: vendor/bin/phpunit
+    - name: Connect to staging EC2 and create hello.txt
+      uses: appleboy/ssh-action@master
+      with:
+        host: 54.151.249.158
+        username: ubuntu
+        key: ${{ secrets.PRIVATE_KEY }}
+        script: echo hello world > hello.txt
+    
