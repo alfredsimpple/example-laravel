@@ -36,8 +36,11 @@ jobs:
     - name: Connect to staging EC2 and create hello.txt
       uses: appleboy/ssh-action@master
       with:
-        host: 54.151.249.158
+        host: 13.215.194.147
         username: ubuntu
         key: ${{ secrets.PRIVATE_KEY }}
-        script: echo hello world > hello.txt
-    
+        script: |
+          cd /var/www/html/app/public
+          sed -i -e "s/BIG/HUGEEEEEE/g" /var/www/html/app/resources/views/welcome.blade.php
+          sudo systemctl restart apache2
+
